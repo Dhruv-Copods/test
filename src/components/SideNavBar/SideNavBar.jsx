@@ -9,7 +9,7 @@ export const SideNavBar = () => {
   ];
 
   return (
-    <aside className="flex flex-col p-10 border">
+    <aside id="side-bar" className="flex flex-col p-10 border">
       {sideNavData.map(({ id, path }) => {
         return (
           <NavLink

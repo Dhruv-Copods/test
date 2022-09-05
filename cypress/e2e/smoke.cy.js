@@ -81,15 +81,8 @@ describe("Tests", () => {
       .should("have.focus")
       .should("have.value", "Note to Delete");
     cy.get('[data-cy="submit"]').click();
-    cy.get('textarea[name="note"]')
-      .clear()
-      .type("another")
-      .should("have.focus")
-      .should("have.value", "another");
-    cy.get('[data-cy="submit"]').click();
     cy.get(".allNotes").each(($el) => {
       cy.wrap($el).within((el) => {
-        // console.log(div[0].getElementsByClassName("noteText")[0]);
         if (
           el[0].getElementsByClassName("noteText")[0].innerHTML ===
           "Note to Delete"
@@ -109,5 +102,54 @@ describe("Tests", () => {
       .get(".noteText")
       .contains("Note to Delete")
       .should("not.exist");
+  });
+
+  it("Test to Archive note and check if its show in Archived Page", () => {
+    cy.visit("/notes");
+    cy.get('textarea[name="note"]')
+      .clear()
+      .type("First Note")
+      .should("have.focus")
+      .should("have.value", "First Note");
+    cy.get('[data-cy="submit"]').click();
+    cy.get('textarea[name="note"]')
+      .clear()
+      .type("Note to Archive")
+      .should("have.focus")
+      .should("have.value", "Note to Archive");
+    cy.get('[data-cy="submit"]').click();
+    cy.get(".allNotes").each(($el) => {
+      cy.wrap($el).within((el) => {
+        if (
+          el[0].getElementsByClassName("noteText")[0].innerHTML ===
+          "Note to Archive"
+        ) {
+          cy.get(".noteText")
+            .contains("Note to Archive")
+            .parent()
+            .within(() => {
+              cy.get('[data-cy="archive"]')
+                .should("have.text", "Archive Note")
+                .click();
+            });
+        }
+      });
+    });
+    cy.get(".allNotes")
+      .get(".noteText")
+      .contains("Note to Delete")
+      .should("not.exist");
+    cy.get("#side-bar").get("a").contains("Archives").click();
+    cy.location("pathname").should("include", "/archives");
+    cy.get(".archivedNotes").each(($el) => {
+      cy.wrap($el).within((el) => {
+        if (
+          el[0].getElementsByClassName("noteText")[0].innerHTML ===
+          "Note to Archive"
+        ) {
+          cy.get(".noteText").contains("Note to Archive");
+        }
+      });
+    });
   });
 });

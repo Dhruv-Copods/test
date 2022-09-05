@@ -10,7 +10,7 @@ export const ArchivedNote = () => {
         return (
           <div
             key={id}
-            className="border p-2 w-96 flex flex-col justify-center items-center rounded-lg gap-3"
+            className="archivedNotes selection:border p-2 w-96 flex flex-col justify-center items-center rounded-lg gap-3"
           >
             <h2 className="noteText break-all">{text}</h2>
             <button
