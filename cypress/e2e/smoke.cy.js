@@ -1,4 +1,6 @@
 /* eslint-disable no-undef */
+import { cypressConstants } from "../../src/constants/constants";
+console.log(cypressConstants);
 describe("Tests", () => {
   it("Test to visit all Routes", () => {
     cy.visit("/dashboard");
