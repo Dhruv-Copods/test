@@ -10,7 +10,7 @@ export const AddNotes = () => {
 
   const addNewNote = () => {
     if (!note) {
-      alert("Dont keep note empty");
+      alert(noteConstants.emptyNoteAlert);
     } else {
       createNewNote(note);
       setNote("");

@@ -1,98 +1,106 @@
 /* eslint-disable no-undef */
 /// <reference types="cypress" />
 
-import { cypressConstants } from "../../src/constants/constants";
-console.log(cypressConstants);
+import {
+  cypressConstants,
+  noteConstants,
+  routeConstants,
+} from "../../src/constants/constants";
+
 describe("Tests", () => {
   it("Test to visit all Routes", () => {
-    cy.visit("/dashboard");
-    cy.url().should("includes", "/dashboard");
-    cy.location("pathname").should("include", "/dashboard");
-    cy.visit("/notes");
-    cy.url().should("includes", "/notes");
-    cy.location("pathname").should("include", "/notes");
-    cy.visit("/archives");
-    cy.url().should("includes", "/archives");
-    cy.location("pathname").should("include", "/archives");
+    cy.visit(routeConstants.dashboard);
+
+    // Dashboard Test
+    cy.get("a").contains("Dashboard").click();
+    cy.location("pathname").should("eq", routeConstants.dashboard);
+
+    // Notes Test
+    cy.get("a").contains("Notes").click();
+    cy.location("pathname").should("eq", routeConstants.notes);
+
+    // Archived Test
+    cy.get("a").contains("Archives").click();
+    cy.location("pathname").should("eq", routeConstants.archives);
   });
 
   it("Test to see if Alert is shown on adding empty note", () => {
-    cy.visit("/notes");
+    cy.visit(routeConstants.notes);
     cy.get('textarea[name="note"]').clear();
     cy.get('[data-cy="submit"]').click();
     cy.on("window:alert", (alert) => {
-      expect(alert).to.contains("Dont keep note empty");
+      expect(alert).to.contains(noteConstants.emptyNoteAlert);
     });
   });
 
   it("Test to see if note is added or not", () => {
-    cy.visit("/notes");
+    cy.visit(routeConstants.notes);
     cy.get('textarea[name="note"]')
       .clear()
-      .type("This is my First Note")
+      .type(cypressConstants.noteOne)
       .should("have.focus")
-      .should("have.value", "This is my First Note");
+      .should("have.value", cypressConstants.noteOne);
     cy.get('[data-cy="submit"]').click();
     cy.get("#all-notes").each(($el) => {
       cy.wrap($el).within((el) => {
         if (
           el[0].getElementsByClassName("noteText")[0].innerHTML ===
-          "This is my First Note"
+          cypressConstants.noteOne
         ) {
-          cy.get(".noteText").should("have.text", "This is my First Note");
+          cy.get(".noteText").should("have.text", cypressConstants.noteOne);
         }
       });
     });
   });
 
   it("Test for adding Note", () => {
-    cy.visit("/notes");
+    cy.visit(routeConstants.notes);
     cy.get('textarea[name="note"]')
       .clear()
-      .type("This is my First Note")
+      .type(cypressConstants.noteOne)
       .should("have.focus")
-      .should("have.value", "This is my First Note");
+      .should("have.value", cypressConstants.noteOne);
     cy.get('[data-cy="submit"]').click();
   });
 
   it("Test for adding Two Notes", () => {
-    cy.visit("/notes");
+    cy.visit(routeConstants.notes);
     cy.get('textarea[name="note"]')
       .clear()
-      .type("This is my First Note")
+      .type(cypressConstants.noteOne)
       .should("have.focus")
-      .should("have.value", "This is my First Note");
+      .should("have.value", cypressConstants.noteOne);
     cy.get('[data-cy="submit"]').click();
     cy.get('textarea[name="note"]')
       .clear()
-      .type("This is my First Note")
+      .type(cypressConstants.noteOne)
       .should("have.focus")
-      .should("have.value", "This is my First Note");
+      .should("have.value", cypressConstants.noteOne);
     cy.get('[data-cy="submit"]').click();
   });
 
   it("Test for deleting a note and checking if it is deleted", () => {
-    cy.visit("/notes");
+    cy.visit(routeConstants.notes);
     cy.get('textarea[name="note"]')
       .clear()
-      .type("First Note")
+      .type(cypressConstants.noteOne)
       .should("have.focus")
-      .should("have.value", "First Note");
+      .should("have.value", cypressConstants.noteOne);
     cy.get('[data-cy="submit"]').click();
     cy.get('textarea[name="note"]')
       .clear()
-      .type("Note to Delete")
+      .type(cypressConstants.noteToDelete)
       .should("have.focus")
-      .should("have.value", "Note to Delete");
+      .should("have.value", cypressConstants.noteToDelete);
     cy.get('[data-cy="submit"]').click();
     cy.get(".allNotes").each(($el) => {
       cy.wrap($el).within((el) => {
         if (
           el[0].getElementsByClassName("noteText")[0].innerHTML ===
-          "Note to Delete"
+          cypressConstants.noteToDelete
         ) {
           cy.get(".noteText")
-            .contains("Note to Delete")
+            .contains(cypressConstants.noteToDelete)
             .parent()
             .within(() => {
               cy.get('[data-cy="delete"]')
@@ -104,32 +112,32 @@ describe("Tests", () => {
     });
     cy.get(".allNotes")
       .get(".noteText")
-      .contains("Note to Delete")
+      .contains(cypressConstants.noteToDelete)
       .should("not.exist");
   });
 
-  it("Test to Archive note and check if its show in Archived Page", () => {
-    cy.visit("/notes");
+  it("Test to Archive note and check if its shown in Archives Page", () => {
+    cy.visit(routeConstants.notes);
     cy.get('textarea[name="note"]')
       .clear()
-      .type("First Note")
+      .type(cypressConstants.noteOne)
       .should("have.focus")
-      .should("have.value", "First Note");
+      .should("have.value", cypressConstants.noteOne);
     cy.get('[data-cy="submit"]').click();
     cy.get('textarea[name="note"]')
       .clear()
-      .type("Note to Archive")
+      .type(cypressConstants.noteToArchive)
       .should("have.focus")
-      .should("have.value", "Note to Archive");
+      .should("have.value", cypressConstants.noteToArchive);
     cy.get('[data-cy="submit"]').click();
     cy.get(".allNotes").each(($el) => {
       cy.wrap($el).within((el) => {
         if (
           el[0].getElementsByClassName("noteText")[0].innerHTML ===
-          "Note to Archive"
+          cypressConstants.noteToArchive
         ) {
           cy.get(".noteText")
-            .contains("Note to Archive")
+            .contains(cypressConstants.noteToArchive)
             .parent()
             .within(() => {
               cy.get('[data-cy="archive"]')
@@ -141,17 +149,17 @@ describe("Tests", () => {
     });
     cy.get(".allNotes")
       .get(".noteText")
-      .contains("Note to Delete")
+      .contains(cypressConstants.noteToDelete)
       .should("not.exist");
     cy.get("#side-bar").get("a").contains("Archives").click();
-    cy.location("pathname").should("include", "/archives");
+    cy.location("pathname").should("include", routeConstants.archives);
     cy.get(".archivedNotes").each(($el) => {
       cy.wrap($el).within((el) => {
         if (
           el[0].getElementsByClassName("noteText")[0].innerHTML ===
-          "Note to Archive"
+          cypressConstants.noteToArchive
         ) {
-          cy.get(".noteText").contains("Note to Archive");
+          cy.get(".noteText").contains(cypressConstants.noteToArchive);
         }
       });
     });

@@ -15,6 +15,7 @@ export const SideNavBar = () => {
         return (
           <NavLink
             key={id}
+            data-cy={path}
             to={`/${path.toLowerCase()}`}
             className={({ isActive }) =>
               `text-2xl p-4 my-5 rounded-lg cursor-pointer flex justify-center border  ${

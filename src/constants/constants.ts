@@ -1,6 +1,7 @@
 export const noteConstants = {
   addNote: "Add Note",
   textareaPlaceholder: "Whats on your mind?",
+  emptyNoteAlert: "Dont keep note empty",
 };
 
 export const noteShowcaseConstants = {
@@ -14,6 +15,12 @@ export const noteShowcaseConstants = {
 
 export const cypressConstants = {
   noteOne: "This is first note",
-  noteTwo: "This is second note",
-  emptyNoteAlert: "Dont keep note empty",
+  noteToDelete: "Note to Delete",
+  noteToArchive: "Note to Archive",
+};
+
+export const routeConstants = {
+  dashboard: "/dashboard",
+  notes: "/notes",
+  archives: "/archives",
 };
