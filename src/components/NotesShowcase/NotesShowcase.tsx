@@ -1,9 +1,11 @@
+import * as React from "react";
 import { noteShowcaseConstants } from "constants/constants";
 import { useNoteContext } from "context/Notes.context";
+import { NotesContextType } from "interface/interface";
 
 export const NotesShowcase = () => {
   const { allNotes, filterNotesUsingSearchString, deleteNote, archiveNote } =
-    useNoteContext();
+    useNoteContext() as NotesContextType;
 
   return (
     <div className="p-5 w-full">
@@ -21,7 +23,7 @@ export const NotesShowcase = () => {
         />
       </div>
       <div className="flex mt-8 flex-wrap text-2xl gap-5">
-        {allNotes.map(({ id, text }) => {
+        {allNotes.map(({ id, text }: { id: string; text: string }) => {
           return (
             <div
               key={id}

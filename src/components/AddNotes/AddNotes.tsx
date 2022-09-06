@@ -1,9 +1,11 @@
+import * as React from "react";
 import { noteConstants } from "constants/constants";
 import { useNoteContext } from "context/Notes.context";
 import { useState } from "react";
+import { NotesContextType } from "interface/interface";
 
 export const AddNotes = () => {
-  const { createNewNote } = useNoteContext();
+  const { createNewNote } = useNoteContext() as NotesContextType;
   const [note, setNote] = useState("");
 
   const addNewNote = () => {
@@ -20,8 +22,8 @@ export const AddNotes = () => {
       <textarea
         name="note"
         id="write-note"
-        cols="50"
-        rows="10"
+        cols={50}
+        rows={10}
         value={note}
         placeholder={noteConstants.textareaPlaceholder}
         className="rounded-lg p-2 border resize-none mt-3"

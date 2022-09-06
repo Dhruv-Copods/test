@@ -1,3 +1,4 @@
+import * as React from "react";
 import { useEffect } from "react";
 import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
 import { MainWrapper, SideNavBar } from "./components";

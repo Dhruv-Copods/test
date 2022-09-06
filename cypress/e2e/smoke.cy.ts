@@ -1,4 +1,6 @@
 /* eslint-disable no-undef */
+/// <reference types="cypress" />
+
 import { cypressConstants } from "../../src/constants/constants";
 console.log(cypressConstants);
 describe("Tests", () => {

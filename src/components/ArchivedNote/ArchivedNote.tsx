@@ -1,12 +1,15 @@
+import * as React from "react";
 import { noteShowcaseConstants } from "constants/constants";
 import { useNoteContext } from "context/Notes.context";
+import { NotesContextType } from "interface/interface";
 
 export const ArchivedNote = () => {
-  const { archivedNotes, deleteNote, unarchiveNote } = useNoteContext();
+  const { archivedNotes, deleteNote, unarchiveNote } =
+    useNoteContext() as NotesContextType;
 
   return (
     <div id="all-notes" className="flex m-8 flex-wrap text-2xl gap-5">
-      {archivedNotes.map(({ id, text }) => {
+      {archivedNotes.map(({ id, text }: { id: string; text: string }) => {
         return (
           <div
             key={id}

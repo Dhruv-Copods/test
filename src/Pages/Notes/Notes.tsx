@@ -1,4 +1,5 @@
 import { AddNotes, NotesShowcase } from "components";
+import * as React from "react";
 
 export const Notes = () => {
   return (
