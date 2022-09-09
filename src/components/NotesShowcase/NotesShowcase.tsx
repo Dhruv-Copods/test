@@ -1,4 +1,4 @@
-import * as React from "react";
+import React from "react";
 import { noteShowcaseConstants } from "constants/constants";
 import { useNoteContext } from "context/Notes.context";
 import { NotesContextType } from "interface/interface";

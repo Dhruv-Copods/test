@@ -18,13 +18,17 @@ const NoteProvider: React.FC<Props> = ({ children }) => {
   };
 
   const filterNotesUsingSearchString = (searchString: string) => {
-    setAllNotes(allNotes.filter((note) => note.text.includes(searchString)));
+    setAllNotes(
+      allNotes.filter((note: Notes) => note.text.includes(searchString))
+    );
   };
 
   const deleteNote = (noteId: string) => {
-    setAllNotes(allNotes.filter((note) => noteId !== note.id));
+    setAllNotes(allNotes.filter((note: Notes) => noteId !== note.id));
     if (archivedNotes.length) {
-      setArchivedNotes(archivedNotes.filter((note) => noteId !== note.id));
+      setArchivedNotes(
+        archivedNotes.filter((note: ArchivedNotes) => noteId !== note.id)
+      );
     }
   };
 

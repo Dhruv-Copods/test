@@ -1,5 +1,5 @@
 import { ArchivedNote } from "components";
-import * as React from "react";
+import React from "react";
 
 export const Archives = () => {
   return (
